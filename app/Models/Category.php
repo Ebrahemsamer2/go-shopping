@@ -13,4 +13,10 @@ class Category extends Model
     {
         return $this->image == '' || strlen($this->image) == 0 ? 'assets/img/categories/cat-default.jpg' : 'assets/img/' . $this->image;
     }
+
+    // Relations
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
