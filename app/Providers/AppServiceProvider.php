@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function($view) {
+            $main_categories = Category::orderBy('id', 'DESC')->take(10)->get();
+            $view->with('main_categories', $main_categories);
+        });
     }
 }
