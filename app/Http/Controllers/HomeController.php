@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
+
+use App\Models\{Category, Product, HomeAds};
 
 class HomeController extends Controller
 {
@@ -16,10 +16,13 @@ class HomeController extends Controller
 
         $categories_ids = $featured_categories->pluck('id');
         $featured_products = Product::whereIn('category_id', $categories_ids)->take(8)->get();
+        
+        $home_ads = HomeAds::latest()->where('active', 1)->take(2)->get();
 
         return view('front.index', [
             'featured_categories' => $featured_categories,
             'featured_products' => $featured_products,
+            'home_ads' => $home_ads,
         ]);
     }
 }

@@ -80,16 +80,15 @@
     <div class="banner">
         <div class="container">
             <div class="row">
+                @foreach( $home_ads as $ad )
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="{{ asset('assets/img/banner/banner-1.jpg') }}" alt="">
+                        {!! $ad->link ? '<a target="_blank" href="'. $ad->link . '">' : ''  !!}
+                            <img src="{{ asset($ad->getAdImage()) }}" alt="">
+                        {!! $ad->link ? '</a>' : '' !!}
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('assets/img/banner/banner-2.jpg') }}" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
