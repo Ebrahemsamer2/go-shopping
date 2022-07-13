@@ -19,10 +19,13 @@ class HomeController extends Controller
         
         $home_ads = HomeAds::latest()->where('active', 1)->take(2)->get();
 
+        $latest_products = Product::latest()->take(6)->get();
+
         return view('front.index', [
             'featured_categories' => $featured_categories,
             'featured_products' => $featured_products,
             'home_ads' => $home_ads,
+            'latest_products' => $latest_products
         ]);
     }
 }

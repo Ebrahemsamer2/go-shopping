@@ -103,62 +103,30 @@
                         <h4>Latest Products</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
+                                @for($i = 0; $i < $latest_products->count() / 2; $i++)
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset($latest_products[$i]->getThumbnail()) }}" alt="{{ $latest_products[$i]->title }}">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>{{ $latest_products[$i]->title }}</h6>
+                                        <span>${{ $latest_products[$i]->getPrice() }}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-2.jpg') }}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-3.jpg') }}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
+                                @endfor
                             </div>
                             <div class="latest-prdouct__slider__item">
+                                @for($i = $latest_products->count() / 2; $i < $latest_products->count(); $i++)
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset($latest_products[$i]->getThumbnail()) }}" alt="{{ $latest_products[$i]->title }}">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>{{ $latest_products[$i]->title }}</h6>
+                                        <span>${{ $latest_products[$i]->getPrice() }}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-2.jpg') }}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ asset('assets/img/latest-product/lp-3.jpg') }}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
+                                @endfor
                             </div>
                         </div>
                     </div>
