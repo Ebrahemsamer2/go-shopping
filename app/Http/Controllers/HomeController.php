@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{Category, Product, HomeAds, Review};
+use App\Models\{Category, Product, HomeAds, Post};
 
 class HomeController extends Controller
 {
@@ -36,13 +36,16 @@ class HomeController extends Controller
         ->take(6)
         ->get();
 
+        $latest_posts = Post::latest()->take(3)->get();
+
         return view('front.index', [
             'featured_categories' => $featured_categories,
             'featured_products' => $featured_products,
             'home_ads' => $home_ads,
             'latest_products' => $latest_products,
             'top_rated_products' => $top_rated_products,
-            'reviewed_products' => $reviewed_products
+            'reviewed_products' => $reviewed_products,
+            'latest_posts' => $latest_posts
         ]);
     }
 }
