@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{Category, Product, HomeAds};
+use App\Models\{Category, Product, HomeAds, Review};
 
 class HomeController extends Controller
 {
@@ -21,11 +21,28 @@ class HomeController extends Controller
 
         $latest_products = Product::latest()->take(6)->get();
 
+        $top_rated_products = Product::select('product_id', 'title', 'price', 'thumbnail', \DB::raw('sum(rate) as the_rate'))
+        ->join('reviews', 'products.id', 'reviews.product_id')
+        ->groupBy('product_id', 'title', 'price', 'thumbnail')
+        ->orderBy('the_rate', 'DESC')
+        ->take(6)
+        ->get();
+
+        $reviewed_products = Product::select('product_id', 'title', 'price', 'thumbnail')
+        ->join('reviews', 'products.id', 'reviews.product_id')
+        ->where('review','!=', '')
+        ->groupBy('product_id', 'title', 'price', 'thumbnail')
+        ->orderBy('products.id', 'DESC')
+        ->take(6)
+        ->get();
+
         return view('front.index', [
             'featured_categories' => $featured_categories,
             'featured_products' => $featured_products,
             'home_ads' => $home_ads,
-            'latest_products' => $latest_products
+            'latest_products' => $latest_products,
+            'top_rated_products' => $top_rated_products,
+            'reviewed_products' => $reviewed_products
         ]);
     }
 }

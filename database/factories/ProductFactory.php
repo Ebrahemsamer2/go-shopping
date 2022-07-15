@@ -30,7 +30,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         self::$counter++;
-        $title = $this->faker->word(10);
+        $title = $this->faker->sentence(3, false);
         return [
             'title' => $title,
             'slug' => $this->generateSlug( $title ),
