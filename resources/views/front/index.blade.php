@@ -21,7 +21,7 @@
                     @foreach($main_categories as $category)
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{{ asset($category->getImage()) }}">
-                            <h5><a href="#">{{ $category->name }}</a></h5>
+                            <h5><a href="{{ route('category', $category->slug) }}">{{ $category->name }}</a></h5>
                         </div>
                     </div>
                     @endforeach
@@ -64,7 +64,7 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">{{ $product->title }}</a></h6>
+                            <h6><a href="{{ route('product', $product->slug) }}">{{ $product->title }}</a></h6>
                             <h5>${{ $product->getPrice() }}</h5>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @for($i = 0; $i < $latest_products->count() / 2; $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $latest_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($latest_products[$i]->getThumbnail()) }}" alt="{{ $latest_products[$i]->title }}">
                                     </div>
@@ -117,7 +117,7 @@
                             </div>
                             <div class="latest-prdouct__slider__item">
                                 @for($i = $latest_products->count() / 2; $i < $latest_products->count(); $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $latest_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($latest_products[$i]->getThumbnail()) }}" alt="{{ $latest_products[$i]->title }}">
                                     </div>
@@ -138,7 +138,7 @@
                             
                             <div class="latest-prdouct__slider__item">
                                 @for($i = 0; $i < $top_rated_products->count() / 2; $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $top_rated_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($top_rated_products[$i]->getThumbnail()) }}" alt="{{ $top_rated_products[$i]->title }}">
                                     </div>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="latest-prdouct__slider__item">
                                 @for($i = $top_rated_products->count() / 2; $i < $top_rated_products->count(); $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $top_rated_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($top_rated_products[$i]->getThumbnail()) }}" alt="{{ $top_rated_products[$i]->title }}">
                                     </div>
@@ -173,7 +173,7 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @for($i = 0; $i < $reviewed_products->count() / 2; $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $reviewed_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($reviewed_products[$i]->getThumbnail()) }}" alt="{{ $reviewed_products[$i]->title }}">
                                     </div>
@@ -186,7 +186,7 @@
                             </div>
                             <div class="latest-prdouct__slider__item">
                                 @for($i = $reviewed_products->count() / 2; $i < $reviewed_products->count(); $i++)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ route('product', $reviewed_products[$i]->slug) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{ asset($reviewed_products[$i]->getThumbnail()) }}" alt="{{ $reviewed_products[$i]->title }}">
                                     </div>
@@ -227,7 +227,7 @@
                                 <li><i class="fa fa-calendar-o"></i> {{ $post->created_at->diffForHumans() }}</li>
                                 <li><i class="fa fa-comment-o"></i> 5</li>
                             </ul>
-                            <h5><a href="#">{{ $post->title }}</a></h5>
+                            <h5><a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a></h5>
                             <p>{{ $post->excerpt }}</p>
                         </div>
                     </div>

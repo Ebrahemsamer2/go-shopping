@@ -21,17 +21,17 @@ class HomeController extends Controller
 
         $latest_products = Product::latest()->take(6)->get();
 
-        $top_rated_products = Product::select('product_id', 'title', 'price', 'thumbnail', \DB::raw('sum(rate) as the_rate'))
+        $top_rated_products = Product::select('product_id', 'title', 'slug','price', 'thumbnail', \DB::raw('sum(rate) as the_rate'))
         ->join('reviews', 'products.id', 'reviews.product_id')
-        ->groupBy('product_id', 'title', 'price', 'thumbnail')
+        ->groupBy('product_id', 'title', 'slug','price', 'thumbnail')
         ->orderBy('the_rate', 'DESC')
         ->take(6)
         ->get();
 
-        $reviewed_products = Product::select('product_id', 'title', 'price', 'thumbnail')
+        $reviewed_products = Product::select('product_id', 'title', 'slug','price', 'thumbnail')
         ->join('reviews', 'products.id', 'reviews.product_id')
         ->where('review','!=', '')
-        ->groupBy('product_id', 'title', 'price', 'thumbnail')
+        ->groupBy('product_id', 'title', 'slug','price', 'thumbnail')
         ->orderBy('products.id', 'DESC')
         ->take(6)
         ->get();
