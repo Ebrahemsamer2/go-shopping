@@ -1,0 +1,12 @@
+.ajax-message {
+    color: #fff;
+    background: #7FAD39;
+    border-color: #7FAD39;
+    font-weight: 600;
+    position: fixed;
+    bottom: 5%;
+    font-size: 1.1rem;
+    right: 0;
+    min-width: 25%;
+    border-radius: 50px;
+}

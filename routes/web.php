@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +13,9 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', HomeController::class)->name('index');
+Route::post('add_to_cart', [CartController::class, 'addToCart'])->name('add_to_cart');
+
 
 Route::get('/shop', function () {
     return view('front.shop');
@@ -25,7 +27,13 @@ Route::get('/category/{category:slug}', function () {
 
 
 Route::get('/cart', function () {
-    return view('front.cart');
+    dd( \Cart::instance('default')->content() );
+    // return view('front.cart');
+});
+
+Route::get('/wishlist', function () {
+    dd( \Cart::instance('wishlist')->content() );
+    // return view('front.cart');
 });
 
 Route::get('/product/{product}', function () {

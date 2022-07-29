@@ -58,9 +58,27 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="{{ asset($product->getThumbnail()) }}">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li>
+                                    <a 
+                                    onclick="
+                                        event.preventDefault();
+                                        Cart.add('{{ $product->slug }}', 'wishlist');
+                                    "
+                                    href="#">
+                                    <i class="fa fa-heart"></i></a>
+                                </li>
+
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li>
+                                    <a 
+                                    onclick="
+                                        event.preventDefault();
+                                        Cart.add('{{ $product->slug }}');
+                                    "
+                                    href="#">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -237,4 +255,40 @@
         </div>
     </section>
     <!-- Blog Section End -->
+@endsection
+
+@section('scripts')
+
+<script>
+    class Cart {
+        static add = (slug, cart_type = 'default') => {
+            let formData = new FormData();
+            let token = $("meta[name='_token']").attr('content');
+
+            formData.append( 'cart_type', cart_type );
+            formData.append( 'slug', slug );
+            formData.append( '_token', token );
+            $.ajax({
+                url: "{{ route('add_to_cart') }}",
+                data: formData,
+                type: "POST",
+                dataType: "JSON",
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    if( response.success )
+                    {
+                        let message = "<div class='alert alert-success ajax-message'>" + response.message + "</div>";
+                        $("body").append(message);
+                    }
+
+                    setTimeout( (e) => {
+                        $("body .ajax-message").remove();
+                    }, 5000)
+                }
+            })
+        }
+    }
+</script>
+
 @endsection

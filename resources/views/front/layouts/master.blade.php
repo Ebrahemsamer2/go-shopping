@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
+    <meta name="_token" content="{{ csrf_token() }}">
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -21,6 +22,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}" type="text/css">
 </head>
 
 <body>
@@ -284,6 +287,7 @@
     <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    @yield('scripts')
 </body>
 
 </html>
