@@ -321,6 +321,7 @@
                             $("body").append(message);
 
                             $("#shoping_cart_tbody").load(location.href + " #shoping_cart_tbody tr");
+                            $("#cart_total").load(location.href + " #cart_total li")
                           
                         }
                         setTimeout( (e) => {
@@ -350,6 +351,7 @@
                             $("body").append(message);
 
                             $(`#${rowId}`).remove();
+                            $("#cart_total").load(location.href + " #cart_total li")
                         }
                         setTimeout( (e) => {
                             $("body .ajax-message").remove();

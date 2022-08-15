@@ -96,12 +96,12 @@
                 <div class="col-lg-6">
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
-                        <ul>
+                        <ul id='cart_total'>
                             <li>Subtotal <span>${{ number_format( ( (int) \Cart::instance('default')->subtotal(0,'','') ) / 100 , 2, ',', ',') }}</span></li>
                             <li>Tax <span>${{ number_format( ( (int) \Cart::tax(0,'','') ) / 100 , 2, ',', ',') }}</span></li>
                             <li>Total <span>${{ number_format( ( (int) \Cart::instance('default')->total(0,'','') ) / 100 , 2, ',', ',') }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="{{ route('checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>

@@ -48,7 +48,7 @@ Route::get('/contact', function () {
 
 Route::get('/checkout', function () {
     return view('front.checkout');
-});
+})->name('checkout');
 
 Route::get('/blog', function () {
     return view('front.blog');
