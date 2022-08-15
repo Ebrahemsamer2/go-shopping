@@ -259,36 +259,4 @@
 
 @section('scripts')
 
-<script>
-    class Cart {
-        static add = (slug, cart_type = 'default') => {
-            let formData = new FormData();
-            let token = $("meta[name='_token']").attr('content');
-
-            formData.append( 'cart_type', cart_type );
-            formData.append( 'slug', slug );
-            formData.append( '_token', token );
-            $.ajax({
-                url: "{{ route('add_to_cart') }}",
-                data: formData,
-                type: "POST",
-                dataType: "JSON",
-                processData: false,
-                contentType: false,
-                success: (response) => {
-                    if( response.success )
-                    {
-                        let message = "<div class='alert alert-success ajax-message'>" + response.message + "</div>";
-                        $("body").append(message);
-                    }
-
-                    setTimeout( (e) => {
-                        $("body .ajax-message").remove();
-                    }, 5000)
-                }
-            })
-        }
-    }
-</script>
-
 @endsection

@@ -13,8 +13,13 @@ use App\Http\Controllers\CartController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', HomeController::class)->name('index');
+// cart routes
 Route::post('add_to_cart', [CartController::class, 'addToCart'])->name('add_to_cart');
+Route::post('remove_from_cart', [CartController::class, 'removeFromCart'])->name('remove_from_cart');
+Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 
 Route::get('/shop', function () {
@@ -26,10 +31,7 @@ Route::get('/category/{category:slug}', function () {
 })->name('category');
 
 
-Route::get('/cart', function () {
-    dd( \Cart::instance('default')->content() );
-    // return view('front.cart');
-});
+
 
 Route::get('/wishlist', function () {
     dd( \Cart::instance('wishlist')->content() );
