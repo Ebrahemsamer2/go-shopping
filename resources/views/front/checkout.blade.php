@@ -113,12 +113,28 @@
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+                                @foreach( $cart_products as $product )
+                                    <li>{{$product->model->title}} <span>{{ $product->qty }} x ${{ $product->model->getPrice() }}</span></li>
+                                @endforeach
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
+                                <div class="checkout__order__subtotal">
+                                    Subtotal 
+                                    <span>
+                                        ${{ number_format( ( (int) \Cart::instance('default')->subtotal(0,'','') ) / 100 , 2, ',', ',') }}
+                                    </span>
+                                </div>
+                                <div class="checkout__order__tax">
+                                    Tax 
+                                    <span>
+                                        ${{ number_format( ( (int) \Cart::tax(0,'','') ) / 100 , 2, ',', ',') }}
+                                    </span>
+                                </div>
+                                <div class="checkout__order__total">Total 
+                                    <span>
+                                        ${{ number_format( ( (int) \Cart::instance('default')->total(0,'','') ) / 100 , 2, ',', ',') }}
+                                    </span>
+                                </div>
+
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?
