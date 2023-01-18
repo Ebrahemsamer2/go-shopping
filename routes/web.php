@@ -22,6 +22,7 @@ Route::post('remove_from_cart', [CartController::class, 'removeFromCart'])->name
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'pay'])->name('checkout.pay');
 
 
 Route::get('/shop', function () {
