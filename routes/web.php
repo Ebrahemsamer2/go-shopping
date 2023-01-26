@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,8 +23,12 @@ Route::post('add_to_cart', [CartController::class, 'addToCart'])->name('add_to_c
 Route::post('remove_from_cart', [CartController::class, 'removeFromCart'])->name('remove_from_cart');
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+// checkout routes
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/checkout', [CheckoutController::class, 'pay'])->name('checkout.pay');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+// order routes
+Route::get('/success_payment/{order}', [OrderController::class, 'successPayment'])->name('success_payment');
+Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPayment'])->name('cancelled_payment');
 
 
 Route::get('/shop', function () {

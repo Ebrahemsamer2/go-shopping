@@ -28,58 +28,72 @@
                     </h6>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    @if($errors->any())
+                        @foreach($errors->all() as $error)
+                        <div class='alert alert-danger'>{{ $error }}</div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form method="POST" action="{{ route('checkout.pay') }}">
+                <form method="POST" action="{{ route('checkout.store') }}">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input type="text">
+                                        <p>First Name<span>*</span></p>
+                                        <input type="text" name='firstname' required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Last Name<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" name='lastname' required>
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>Country<span>*</span></p>
-                                <input type="text">
+                                <input type="text" name='country' required>
                             </div>
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-                            </div>
+                            
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
-                                <input type="text">
+                                <input type="text" name='city' required>
                             </div>
+
                             <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
+                                <p>Address line 1<span>*</span></p>
+                                <input type="text" placeholder='Address Line 1' name='address_line_1' required>
                             </div>
+
+                            <div class="checkout__input">
+                                <p>Address line 2</p>
+                                <input type="text" placeholder='Address Line 2' name='address_line_2'>
+                            </div>
+
                             <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
+                                <input type="text" name='zipcode' required>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text">
+                                        <input name='phone' type="text" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text">
+                                        <input type="email" name='email' required>
                                     </div>
                                 </div>
                             </div>
@@ -96,18 +110,33 @@
                                 <p>Account Password<span>*</span></p>
                                 <input type="text">
                             </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Ship to a different address?
-                                    <input type="checkbox" id="diff-acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                    
                             <div class="checkout__input">
-                                <p>Order notes<span>*</span></p>
-                                <input type="text"
+                                <p>Order notes</p>
+                                <input type="text" name='notes'
                                     placeholder="Notes about your order, e.g. special notes for delivery.">
                             </div>
+
+                            <hr>
+
+                            <a href='#shipToAnotherAddress' data-toggle='collapse' aria-expanded='false' aria-controls='shipToAnotherAddress'>
+                                <h4>
+                                    Ship to another address
+                                </h4>
+                            </a>
+
+                            <div class="collapse" id='shipToAnotherAddress'>
+                                <div class="checkout__input">
+                                    <p>Ship Address line 1</p>
+                                    <input type="text" placeholder='Ship Address Line 1' name='ship_address_line_1'>
+                                </div>
+
+                                <div class="checkout__input">
+                                    <p>Ship Address line 2</p>
+                                    <input type="text" placeholder='Ship Address Line 2' name='ship_address_line_2'>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
