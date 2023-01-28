@@ -13,4 +13,8 @@ class HomeAds extends Model
     {
         return $this->image == '' || strlen($this->image) == 0 ? 'assets/img/banner/banner-1.jpg' : 'assets/img/' . $this->image;
     }
+
+    public static function latestAds($limit) {
+        return self::latest()->where('active', 1)->take($limit)->get();
+    }
 }

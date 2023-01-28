@@ -14,6 +14,10 @@ class Post extends Model
         return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? 'assets/img/blog/blog-default.png' : 'assets/img/' . $this->thumbnail;
     }
 
+    public static function latestBlog($limit){
+        return self::latest()->take($limit)->get();
+    }
+    
     // Relations
     public function author()
     {

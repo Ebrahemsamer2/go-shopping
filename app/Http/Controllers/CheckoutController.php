@@ -19,12 +19,11 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request)
     {
-        $request_attributes = $request->all();
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
         
         $line_items = [];
         $orderPrice = 0;
-        $item_ids = [];
+        $product_ids = [];
 
         foreach(Cart::getAll() as $item)
         {
@@ -43,7 +42,7 @@ class CheckoutController extends Controller
 
             while($qty) {
                 $orderPrice += $item->price;
-                $item_ids[] = array('product_id' => $item->model->id);
+                $product_ids[] = array('product_id' => $item->model->id);
                 $qty--;
             }
         }
@@ -59,18 +58,7 @@ class CheckoutController extends Controller
         $orderPrice += \Cart::tax(0, '', '');
         
         // inserting a new order for this session
-
-        $main_order_attributes = [
-            'price' => $orderPrice,
-            'tax' => (int) \Cart::tax(0,'',''),
-            'payment_method' => Order::STRIPE_PAYMENT_METHOD,
-            'status' => Order::PENDING_ORDER_STATUS
-        ];
-        $all_attributes = array_merge($main_order_attributes, $request_attributes);
-
-        $order = Order::create($all_attributes);
-
-        $orderItems = $order->orderItems()->createMany($item_ids);
+        $order = Order::createWithOrderItems($orderPrice, $request, $product_ids);
 
         $checkout_session = $stripe->checkout->sessions->create([
             'line_items' => $line_items,

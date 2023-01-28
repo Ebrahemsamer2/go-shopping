@@ -10,33 +10,20 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $featured_categories = Category::latest()
-        ->whereHas('products')
-        ->take(5)->get();
+        $featured_categories = Category::featured();
 
         $categories_ids = $featured_categories->pluck('id');
-        $featured_products = Product::whereIn('category_id', $categories_ids)->take(8)->get();
+        $featured_products = Product::featured($categories_ids);
         
-        $home_ads = HomeAds::latest()->where('active', 1)->take(2)->get();
+        $home_ads = HomeAds::latestAds(2);
 
         $latest_products = Product::latest()->take(6)->get();
 
-        $top_rated_products = Product::select('product_id', 'title', 'slug','price', 'thumbnail', \DB::raw('sum(rate) as the_rate'))
-        ->join('reviews', 'products.id', 'reviews.product_id')
-        ->groupBy('product_id', 'title', 'slug','price', 'thumbnail')
-        ->orderBy('the_rate', 'DESC')
-        ->take(6)
-        ->get();
+        $top_rated_products = Product::topRated(6);
 
-        $reviewed_products = Product::select('product_id', 'title', 'slug','price', 'thumbnail')
-        ->join('reviews', 'products.id', 'reviews.product_id')
-        ->where('review','!=', '')
-        ->groupBy('product_id', 'title', 'slug','price', 'thumbnail')
-        ->orderBy('products.id', 'DESC')
-        ->take(6)
-        ->get();
+        $reviewed_products = Product::reviewed(6);
 
-        $latest_posts = Post::latest()->take(3)->get();
+        $latest_posts = Post::latestBlog(3);
 
         return view('front.index', [
             'featured_categories' => $featured_categories,

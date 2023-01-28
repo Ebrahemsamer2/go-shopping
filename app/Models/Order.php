@@ -42,6 +42,19 @@ class Order extends Model
         return false;
     }
 
+    public static function createWithOrderItems($orderPrice, $request, $orderItemsIds) {
+        $main_order_attributes = [
+            'price' => $orderPrice,
+            'tax' => (int) \Cart::tax(0,'',''),
+            'payment_method' => self::STRIPE_PAYMENT_METHOD,
+            'status' => self::PENDING_ORDER_STATUS
+        ];
+        $all_attributes = array_merge($main_order_attributes, $request->all());
+        $order = self::create($all_attributes);
+        $order->orderItems()->createMany($orderItemsIds);
+        return $order;
+    }
+
     public function orderItems() {
         return $this->hasMany(OrderItem::class);
     }

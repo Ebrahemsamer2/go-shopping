@@ -14,6 +14,10 @@ class Category extends Model
         return $this->image == '' || strlen($this->image) == 0 ? 'assets/img/categories/cat-default.jpg' : 'assets/img/' . $this->image;
     }
 
+    public static function featured() {
+        return self::latest()->whereHas('products')->take(5)->get();
+    }
+
     // Relations
     public function products()
     {
