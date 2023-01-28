@@ -17,6 +17,10 @@ class CartController extends Controller
         ]);
     }
 
+    public function wishlist() {
+        dd( \Cart::instance('wishlist')->content() );
+    }
+    
     public function addToCart(AddToCartRequest $request)
     {
         return Cart::add( $request );

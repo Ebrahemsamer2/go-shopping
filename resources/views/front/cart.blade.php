@@ -52,7 +52,9 @@
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="{{ $product->qty }}">
+                                                <span class="dec qtybtn">-</span>
+                                                    <input type="text" value="{{ $product->qty }}">
+                                                <span class="inc qtybtn">+</span>
                                             </div>
                                         </div>
                                     </td>

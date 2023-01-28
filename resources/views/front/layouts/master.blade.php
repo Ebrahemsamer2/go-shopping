@@ -128,7 +128,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+                        <a href="{{ route('index') }}"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -141,11 +141,11 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
+                <div id='header__cart__content' class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>{{ $wishlist_items_count }}</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{ $cart_items_count }}</span></a></li>
+                            <li><a href="{{ route('cart.wishlist') }}"><i class="fa fa-heart"></i> <span>{{ $wishlist_items_count }}</span></a></li>
+                            <li><a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i> <span>{{ $cart_items_count }}</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>${{ $total_price }}</span></div>
                     </div>
@@ -323,7 +323,8 @@
                             $("body").append(message);
 
                             $("#shoping_cart_tbody").load(location.href + " #shoping_cart_tbody tr");
-                            $("#cart_total").load(location.href + " #cart_total li")
+                            $("#cart_total").load(location.href + " #cart_total li");
+                            $("#header__cart__content").load(location.href + " #header__cart__content .header__cart");
                           
                         }
                         setTimeout( (e) => {
@@ -354,6 +355,8 @@
 
                             $(`#${rowId}`).remove();
                             $("#cart_total").load(location.href + " #cart_total li")
+
+                            $("#header__cart__content").load(location.href + " #header__cart__content .header__cart");
                         }
                         setTimeout( (e) => {
                             $("body .ajax-message").remove();
@@ -380,6 +383,7 @@
                         {
                             let message = "<div class='alert alert-success ajax-message'>" + response.message + "</div>";
                             $("body").append(message);
+                            $("#header__cart__content").load(location.href + " #header__cart__content .header__cart");
                         }
                         setTimeout( (e) => {
                             $("body .ajax-message").remove();
