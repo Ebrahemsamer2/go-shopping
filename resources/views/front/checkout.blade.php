@@ -192,7 +192,7 @@
                                 @if(count($cart_products))
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
                                 @else
-                                <button type="button" title='You Cart Is Empty' class="invalid-order-btn site-btn">PLACE ORDER</button>
+                                <button type="button" title='Your Cart Is Empty' class="invalid-order-btn site-btn">PLACE ORDER</button>
                                 @endif
 
                             </div>
