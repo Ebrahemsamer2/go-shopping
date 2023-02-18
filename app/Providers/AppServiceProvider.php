@@ -15,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if(request()->has('payment_method'))
+        {
+            $className = $this->generatePaymentClass(request()->get('payment_method'));
+            $this->app->bind(\App\PaymentMethods\PaymentInterface::class, $className);
+        }
     }
 
     /**
@@ -37,5 +41,17 @@ class AppServiceProvider extends ServiceProvider
             $view->with('cart_items_count', $cart_items_count);
             $view->with('total_price', $total_price);
         });
+    }
+
+    private function generatePaymentClass($class_name)
+    {
+        switch($class_name)
+        {
+            case 'stripe':
+                return \App\PaymentMethods\Stripe::class;
+            case 'paypal':
+                return \App\PaymentMethods\Paypal::class;
+        }
+        throw new Exception("Error: Payment gateway {$class_name} is not found");
     }
 }
