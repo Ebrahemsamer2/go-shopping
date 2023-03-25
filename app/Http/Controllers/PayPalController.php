@@ -1,16 +1,25 @@
-<?php 
-
-namespace App\PaymentMethods;
-
+<?php
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
-class Paypal implements PaymentInterface
+class PayPalController extends Controller
 {
-    public function pay(Request $request)
+    /**
+     * create transaction.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createTransaction()
     {
-        dd("Paypal Success");
-        
+        return view('front.paypaltransaction');
+    }
+    /**
+     * process transaction.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function processTransaction(Request $request)
+    {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -45,7 +54,11 @@ class Paypal implements PaymentInterface
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     }
-
+    /**
+     * success transaction.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function successTransaction(Request $request)
     {
         dd("Success");
@@ -72,7 +85,6 @@ class Paypal implements PaymentInterface
     public function cancelTransaction(Request $request)
     {
         dd("Cancelled");
-
         return redirect()
             ->route('createTransaction')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');
