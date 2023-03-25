@@ -188,13 +188,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-
-                                @if(count($cart_products))
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
-                                @else
-                                <button type="button" title='You Cart Is Empty' class="invalid-order-btn site-btn">PLACE ORDER</button>
-                                @endif
-
                             </div>
                         </div>
                     </div>

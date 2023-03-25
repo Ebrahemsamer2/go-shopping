@@ -10,8 +10,3 @@
     min-width: 25%;
     border-radius: 50px;
 }
-
-.invalid-order-btn {
-    opacity: .5;
-    cursor: not-allowed;
-}

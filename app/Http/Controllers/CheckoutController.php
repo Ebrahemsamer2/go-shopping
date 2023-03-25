@@ -46,11 +46,6 @@ class CheckoutController extends Controller
                 $qty--;
             }
         }
-
-        if(count($product_ids) === 0) {
-            abort(500);
-        }
-
         $line_items[] = array(
             'price_data' => array(
                 'currency' => 'usd', 
