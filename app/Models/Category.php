@@ -18,6 +18,10 @@ class Category extends Model
         return self::latest()->whereHas('products')->take(5)->get();
     }
 
+    public static function getHasProductsCategories($limit) {
+        return self::with('products')->has('products')->limit($limit)->get();
+    }
+
     // Relations
     public function products()
     {

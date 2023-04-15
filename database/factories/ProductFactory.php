@@ -34,7 +34,8 @@ class ProductFactory extends Factory
         return [
             'title' => $title,
             'slug' => $this->generateSlug( $title ),
-            'price' => rand(200, 5000),
+            'price' => rand(200, 10000),
+            'discount' => rand(10, 50),
             'thumbnail' => self::thumbnails[self::$counter],
             'category_id' => Category::inRandomOrder()->take(1)->get()[0]->id,
             'user_id' => 1,

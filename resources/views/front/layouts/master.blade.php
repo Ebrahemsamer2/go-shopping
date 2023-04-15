@@ -291,6 +291,7 @@
 
     <script src="{{ asset('assets/js/ajax-manager.js') }}"></script>
     <script src="{{ asset('assets/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/js/functions.js') }}"></script>
     @yield('scripts')
 </body>
 

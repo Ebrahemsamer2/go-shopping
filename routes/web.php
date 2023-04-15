@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,10 @@ Route::get('/success_payment/{order}', [OrderController::class, 'successPayment'
 Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPayment'])->name('cancelled_payment');
 
 
-Route::get('/shop', function () {
-    return view('front.shop');
-})->name('shop');
+// Shop Routes
+
+Route::get('shop', [ShopController::class, 'index'])->name('shop');
+
 
 Route::get('/category/{category:slug}', function () {
     return view('front.category');

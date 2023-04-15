@@ -167,14 +167,27 @@
         maxamount = $("#maxamount"),
         minPrice = rangeSlider.data('min'),
         maxPrice = rangeSlider.data('max');
+
+        let url_price_from = rangeSlider.data('price-from');
+        let url_price_to = rangeSlider.data('price-to');
+
     rangeSlider.slider({
         range: true,
         min: minPrice,
         max: maxPrice,
-        values: [minPrice, maxPrice],
+        values: [url_price_from, url_price_to],
         slide: function (event, ui) {
             minamount.val('$' + ui.values[0]);
             maxamount.val('$' + ui.values[1]);
+        },
+        stop: function(event, ui) {
+            let price_from = ui.values[0];
+            let price_to = ui.values[1];
+            
+            let filters = [];
+            filters['price_from'] = price_from;
+            filters['price_to'] = price_to;
+            appendParam(filters);
         }
     });
     minamount.val('$' + rangeSlider.slider("values", 0));
