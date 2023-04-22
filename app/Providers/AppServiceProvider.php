@@ -3,7 +3,7 @@
 namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Pagination\Paginator;
 use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('cart_items_count', $cart_items_count);
             $view->with('total_price', $total_price);
         });
+
+        Paginator::useBootstrapFive();
     }
 }

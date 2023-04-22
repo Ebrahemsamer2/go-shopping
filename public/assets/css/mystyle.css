@@ -10,3 +10,15 @@
     min-width: 25%;
     border-radius: 50px;
 }
+
+/* Shop Pagintion Style */
+
+.shop-pagination-nav ul.pagination li .page-link {
+    color: #7FAD39;
+}
+
+.shop-pagination-nav ul.pagination li.page-item.active .page-link {
+    background-color: #7FAD39;
+    border-color: #7FAD39;
+    color: #fff;
+}
