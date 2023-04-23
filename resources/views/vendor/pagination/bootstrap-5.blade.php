@@ -35,7 +35,8 @@
                     <span class="fw-semibold">{{ $paginator->lastItem() }}</span>
                     {!! __('of') !!}
                     <span class="fw-semibold">{{ $paginator->total() }}</span>
-                    {!! __('products') !!}
+                    {!! \Route::currentRouteName() == 'blog' ? __('posts') : __('products') !!}
+
                 </p>
             </div>
 

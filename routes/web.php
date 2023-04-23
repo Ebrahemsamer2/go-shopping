@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +35,16 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 Route::get('/success_payment/{order}', [OrderController::class, 'successPayment'])->name('success_payment');
 Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPayment'])->name('cancelled_payment');
 
-
 // Shop Routes
-
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
+
+// Single Category Routes
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('category');
 
+// Blog Routes
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+// Single Blog Category Routes
+Route::get('/blogCategory/{blogCategory::slug}', function(){})->name('blog_category');
 
 Route::get('/product/{product}', function () {
     return view('front.shop-details');
@@ -49,9 +54,7 @@ Route::get('/contact', function () {
     return view('front.contact');
 })->name('contact');
 
-Route::get('/blog', function () {
-    return view('front.blog');
-})->name('blog');
+
 
 Route::get('/blog/{post:slug}', function () {
     return view('front.blog-details');
