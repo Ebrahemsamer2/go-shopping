@@ -31,13 +31,7 @@
                             <ul>
                                 @foreach($categories_has_products as $sidebar_category)
                                 <li><a 
-                                onclick='
-                                    event.preventDefault();
-                                    let filters = [];
-                                    filters["category"] = "{{ $sidebar_category->slug }}";
-                                    appendParam(filters);
-                                '
-                                href="#">{{ $sidebar_category->name }}</a></li>
+                                href="{{ route('category', $sidebar_category->slug) }}">{{ $sidebar_category->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -100,6 +94,7 @@
                             <h2>Sale Off</h2>
                         </div>
                         <div class="row">
+                            @if($top_discount_rated_products->count() > 3)
                             <div class="product__discount__slider owl-carousel">
                                 @foreach($top_discount_rated_products as $product)
                                 <div class="col-lg-4">
@@ -124,7 +119,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>{{ $product->category->name }}</span>
+                                            <span>{{ $category->name }}</span>
                                             <h5><a href="{{ route('product', $product->slug) }}">{{ $product->title }}</a></h5>
                                             <div class="product__item__price">${{ $product->getPriceAfterDiscount() }} <span>${{ $product->getPrice() }}</span></div>
                                         </div>
@@ -132,6 +127,39 @@
                                 </div>
                                 @endforeach
                             </div>
+                            @else
+
+                            @foreach($top_discount_rated_products as $product)
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__discount__item__pic product__item__pic set-bg" data-setbg="{{ asset($product->getThumbnail()) }}">
+                                        <div class="product__discount__percent">-{{ $product->discount }}%</div>
+                                        <ul class="product__item__pic__hover">
+                                            <li><a 
+                                            onclick="
+                                                event.preventDefault();
+                                                Cart.add('{{ $product->slug }}', 'wishlist');
+                                            "
+                                            href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a 
+                                            onclick="
+                                                event.preventDefault();
+                                                Cart.add('{{ $product->slug }}');
+                                            "
+                                            href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <span>{{ $category->name }}</span>
+                                        <h6><a href="{{ route('product', $product->slug) }}">{{ $product->title }}</a></h6>
+                                        <h5>${{ $product->getPrice() }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+
+                            @endif
                         </div>
                     </div>
                     <div class="filter__item">
@@ -192,12 +220,6 @@
                     <div>
                         {{ $products->links() }}
                     </div>
-                    <!-- <div class="product__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div> -->
                 </div>
             </div>
         </div>

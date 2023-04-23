@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +38,7 @@ Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPaym
 // Shop Routes
 
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
-
-
-Route::get('/category/{category:slug}', function () {
-    return view('front.category');
-})->name('category');
+Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('category');
 
 
 Route::get('/product/{product}', function () {

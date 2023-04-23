@@ -57,10 +57,10 @@ class Product extends Model
 
 
     public static function topRatedProducts($limit, $where_filter) {
-        return self::select('product_id', 'title', 'slug','price', 'discount','thumbnail', \DB::raw('sum(rate) as the_rate'))
+        return self::with('category')->select('product_id', 'title', 'category_id','slug','price', 'discount','thumbnail', \DB::raw('sum(rate) as the_rate'))
         ->join('reviews', 'products.id', 'reviews.product_id')
         ->where( $where_filter[0],  $where_filter[1],  $where_filter[2])
-        ->groupBy('product_id', 'title', 'slug','price', 'discount', 'thumbnail')
+        ->groupBy('product_id', 'title', 'category_id', 'slug','price', 'discount', 'thumbnail')
         ->orderBy('the_rate', 'DESC')
         ->take($limit)
         ->get();
