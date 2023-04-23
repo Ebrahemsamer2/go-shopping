@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\HomeAds::factory(2)->create();
         \App\Models\Review::factory(100)->create();
 
+        \App\Models\BlogCategory::factory(5)->create();
         \App\Models\Post::factory(6)->create();
 
         // \App\Models\User::factory()->create([

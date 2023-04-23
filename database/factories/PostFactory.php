@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\BlogCategory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
  */
@@ -30,6 +30,7 @@ class PostFactory extends Factory
             'thumbnail' => self::thumbnails[self::$counter],
             'body' => $this->faker->paragraph(10),
             'user_id' => 1,
+            'blog_category_id' => BlogCategory::inRandomOrder()->take(1)->get()[0]->id,
         ];
     }
     public function generateSlug($slug)

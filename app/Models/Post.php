@@ -19,6 +19,13 @@ class Post extends Model
     }
     
     // Relations
+
+    
+    public function blogCategory()
+    {
+        return $this->belongsTo(User::class, 'blog_category_id');
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
