@@ -23,6 +23,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\BlogCategory::factory(5)->create();
         \App\Models\Post::factory(6)->create();
 
+        $tags = \App\Models\Tag::factory(10)->create();
+        foreach($tags as $tag) {
+            $post = \App\Models\Post::inRandomOrder()->first();
+            $post->tags()->attach($tag->id);
+        }
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
