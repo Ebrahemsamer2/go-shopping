@@ -11,7 +11,7 @@ class Post extends Model
 
     public function getThumbnail()
     {
-        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? 'assets/img/blog/blog-default.png' : 'assets/img/' . $this->thumbnail;
+        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? 'assets/img/blog/blog-default.png' : asset('assets/img/' . $this->thumbnail);
     }
 
     public static function latestBlog($limit){

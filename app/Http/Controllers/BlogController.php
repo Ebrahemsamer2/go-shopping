@@ -23,4 +23,16 @@ class BlogController extends Controller
             'tags' => $tags
         ]);
     }
+
+    public function show(Post $post) {
+        $latest_posts = Post::latestBlog(3);
+        $blog_categories = BlogCategory::whereHas('posts')->withCount('posts')->limit(10)->get();
+        $tags = Tag::limit(50)->get();
+        return view('front.blog.show', [
+            'single_post' => $post,
+            'latest_posts' => $latest_posts,
+            'blog_categories' => $blog_categories,
+            'tags' => $tags
+        ]);
+    }
 }

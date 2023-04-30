@@ -43,6 +43,8 @@ Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->n
 
 // Blog Routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('post');
+
 // Single Blog Category Routes
 Route::get('/blogCategory/{blogCategory::slug}', function(){})->name('blog_category');
 
@@ -54,8 +56,3 @@ Route::get('/contact', function () {
     return view('front.contact');
 })->name('contact');
 
-
-
-Route::get('/blog/{post:slug}', function () {
-    return view('front.blog-details');
-})->name('post');
