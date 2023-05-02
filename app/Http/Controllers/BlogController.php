@@ -28,11 +28,19 @@ class BlogController extends Controller
         $latest_posts = Post::latestBlog(3);
         $blog_categories = BlogCategory::whereHas('posts')->withCount('posts')->limit(10)->get();
         $tags = Tag::limit(50)->get();
+        
+        $posts_you_may_like = Post::
+        where('blog_category_id', $post->blog_category_id)
+        ->inRandomOrder()
+        ->limit(3)
+        ->get();
+
         return view('front.blog.show', [
             'single_post' => $post,
             'latest_posts' => $latest_posts,
             'blog_categories' => $blog_categories,
-            'tags' => $tags
+            'tags' => $tags,
+            'posts_you_may_like' => $posts_you_may_like
         ]);
     }
 }

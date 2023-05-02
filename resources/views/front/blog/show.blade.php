@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog__details__hero__text">
-                        <h2>The Moment You Need To Remove Garlic From The Menu</h2>
+                        <h2>{{ $single_post->title }}</h2>
                         <ul>
                             <li>By Michael Scofield</li>
-                            <li>January 14, 2019</li>
+                            <li>{{ $single_post->created_at->diffForHumans() }}</li>
                             <li>8 Comments</li>
                         </ul>
                     </div>
@@ -27,21 +27,9 @@
                 @include("front.includes.blog_sidebar")
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
-                        <img src="{{ asset('assets/img/blog/details/details-pic.jpg') }}" alt="">
-                        <p>Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                            dui. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit
-                            aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur
-                            sed, convallis at tellus. Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada.
-                            Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus.
-                            Donec rutrum congue leo eget malesuada. Curabitur non nulla sit amet nisl tempus convallis
-                            quis ac lectus. Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada
-                            feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.</p>
-                        <h3>The corner window forms a place within a place that is a resting point within the large
-                            space.</h3>
-                        <p>The study area is located at the back with a view of the vast nature. Together with the other
-                            buildings, a congruent story has been managed in which the whole has a reinforcing effect on
-                            the components. The use of materials seeks connection to the main house, the adjacent
-                            stables</p>
+                        <img style="width:750px; height: 630px;" src="{{ $single_post->getThumbnail() }}" alt="{{ $single_post->title }}">
+
+                        {!! $single_post->body !!}
                     </div>
                     <div class="blog__details__content">
                         <div class="row">
@@ -59,8 +47,15 @@
                             <div class="col-lg-6">
                                 <div class="blog__details__widget">
                                     <ul>
-                                        <li><span>Categories:</span> Food</li>
-                                        <li><span>Tags:</span> All, Trending, Cooking, Healthy Food, Life Style</li>
+                                        <li><span>Categories:</span> {{ $single_post->blogCategory->name }}</li>
+                                        <li><span>Tags:</span> 
+                                            @foreach($single_post->tags as $tag)
+                                                {{ $tag->name }}
+                                                @if($loop->index !== count($single_post->tags) - 1)
+                                                    {{ ', ' }}
+                                                @endif
+                                            @endforeach
+                                        </li>
                                     </ul>
                                     <div class="blog__details__social">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -90,51 +85,23 @@
                 </div>
             </div>
             <div class="row">
+                @foreach($posts_you_may_like as $post)
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="{{ asset('assets/img/blog/blog-1.jpg') }}" alt="">
+                            <img src="{{ $post->getThumbnail() }}" alt="{{ $post->title }}">
                         </div>
                         <div class="blog__item__text">
                             <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                <li><i class="fa fa-calendar-o"></i> {{ $post->created_at->diffForHumans() }}</li>
                                 <li><i class="fa fa-comment-o"></i> 5</li>
                             </ul>
-                            <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                            <h5><a href="#">{{ $post->title }}</a></h5>
+                            <p>{{ $post->excerpt }} </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('assets/img/blog/blog-2.jpg') }}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('assets/img/blog/blog-3.jpg') }}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">Visit the clean farm in the US</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

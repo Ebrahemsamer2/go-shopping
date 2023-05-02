@@ -11,7 +11,7 @@ class Post extends Model
 
     public function getThumbnail()
     {
-        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? 'assets/img/blog/blog-default.png' : asset('assets/img/' . $this->thumbnail);
+        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('assets/img/blog/blog-default.png') : asset('assets/img/' . $this->thumbnail);
     }
 
     public static function latestBlog($limit){
@@ -23,7 +23,7 @@ class Post extends Model
     
     public function blogCategory()
     {
-        return $this->belongsTo(User::class, 'blog_category_id');
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }
 
     public function tags() {
