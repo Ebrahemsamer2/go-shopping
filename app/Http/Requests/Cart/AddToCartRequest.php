@@ -26,6 +26,7 @@ class AddToCartRequest extends FormRequest
         return [
             'cart_type' => 'required|string|in:default,wishlist',
             'slug' => 'required|string',
+            'qty' => 'required|numeric|min:1',
         ];
     }
 }

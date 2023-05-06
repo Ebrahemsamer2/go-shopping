@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(1)->create();
         \App\Models\Category::factory(10)->create();
-        \App\Models\Product::factory(12)->create();
+        $products = \App\Models\Product::factory(12)->create();
         \App\Models\HomeAds::factory(2)->create();
         \App\Models\Review::factory(100)->create();
 
@@ -28,6 +28,11 @@ class DatabaseSeeder extends Seeder
             $post = \App\Models\Post::inRandomOrder()->first();
             $post->tags()->attach($tag->id);
         }
+
+        foreach($products as $product) {
+            \App\Models\Image::factory(5)->create(['product_id' => $product->id]);
+        }
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

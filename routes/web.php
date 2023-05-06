@@ -31,12 +31,14 @@ Route::get('/wishlist', [CartController::class, 'wishlist'])->name('cart.wishlis
 // checkout routes
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
 // order routes
 Route::get('/success_payment/{order}', [OrderController::class, 'successPayment'])->name('success_payment');
 Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPayment'])->name('cancelled_payment');
 
 // Shop Routes
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/product/{product:slug}', [ShopController::class, 'show'])->name('product');
 
 // Single Category Routes
 Route::get('/category/{category:slug}', [CategoryController::class, 'index'])->name('category');
@@ -48,9 +50,7 @@ Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('post');
 // Single Blog Category Routes
 Route::get('/blogCategory/{blogCategory::slug}', function(){})->name('blog_category');
 
-Route::get('/product/{product}', function () {
-    return view('front.shop-details');
-})->name('product');
+
 
 Route::get('/contact', function () {
     return view('front.contact');

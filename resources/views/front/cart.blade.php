@@ -47,7 +47,7 @@
                                         <h5>{{ $product->model->title }}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${{ $product->model->getPrice() }}
+                                        ${{ $product->model->getPriceAfterDiscount() }}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
@@ -59,7 +59,7 @@
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        ${{ number_format( ( $product->model->price * $product->qty ) / 100 , 2, ',', ',') }}
+                                        ${{ number_format( ( $product->model->netPrice() * $product->qty ) / 100 , 2, ',', ',') }}
                                     </td>
                                     <td 
                                     onclick="Cart.remove('{{ $product->rowId }}')"

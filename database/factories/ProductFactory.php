@@ -33,6 +33,8 @@ class ProductFactory extends Factory
         $title = $this->faker->sentence(3, false);
         return [
             'title' => $title,
+            'small_description' => $this->faker->text,
+            'description' => $this->faker->sentence(500),
             'slug' => $this->generateSlug( $title ),
             'price' => rand(200, 10000),
             'discount' => rand(10, 50),

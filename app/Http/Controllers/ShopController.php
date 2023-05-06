@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Review;
 
 class ShopController extends Controller
 {
@@ -28,6 +29,19 @@ class ShopController extends Controller
             'categories_has_products' => $categories_has_products,
             'latest_products' => $latest_products,
             'search_filters' => $search_filters
+        ]);
+    }
+    public function show(Product $product)
+    {
+        $rate = Review::where('product_id', $product->id)->sum('rate');
+        $reviews_number = $product->reviews()->count();
+
+        $rate_percentage = 100 * $rate / ( $reviews_number * 5 );
+
+        return view('front.shop.show', [
+            'product' => $product,
+            'product_rate' => $rate_percentage,
+            'reviews_number' => $reviews_number,
         ]);
     }
 }

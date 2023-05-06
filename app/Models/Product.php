@@ -11,12 +11,22 @@ class Product extends Model
 
     public function getThumbnail()
     {
-        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? 'assets/img/product/product-default.jpg' : 'assets/img/' . $this->thumbnail;
+        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('assets/img/product/product-default.jpg') : asset('assets/img/' . $this->thumbnail);
+    }
+
+    public function getFeaturedImages()
+    {
+        return $this->images;
     }
 
     public function getPrice()
     {
         return number_format($this->price / 100, 2, ',', ',');
+    }
+
+    public function inStock()
+    {
+        return $this->stock > 0;
     }
 
     public static function paginateProducts($limit, $search_filters) {
@@ -101,5 +111,9 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function images() {
+        return $this->hasMany(Image::class);
     }
 }

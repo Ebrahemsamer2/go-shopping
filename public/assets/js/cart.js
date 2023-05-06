@@ -58,12 +58,13 @@ class Cart {
         });
     };
 
-    static add = (slug, cart_type = 'default') => {
+    static add = (slug, cart_type = 'default', qty) => {
         let formData = new FormData();
         let token = $("meta[name='_token']").attr('content');
 
         formData.append( 'cart_type', cart_type );
         formData.append( 'slug', slug );
+        formData.append( 'qty', qty );
         formData.append( '_token', token );
 
         Ajax.send('/add_to_cart', formData, 'POST', (response) => {
