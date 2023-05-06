@@ -29,8 +29,8 @@ class BlogController extends Controller
         $blog_categories = BlogCategory::whereHas('posts')->withCount('posts')->limit(10)->get();
         $tags = Tag::limit(50)->get();
         
-        $posts_you_may_like = Post::
-        where('blog_category_id', $post->blog_category_id)
+        $posts_you_may_like = Post::where('id', '!=', $post->id)
+        ->where('blog_category_id', $post->blog_category_id)
         ->inRandomOrder()
         ->limit(3)
         ->get();

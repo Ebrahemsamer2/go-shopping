@@ -38,10 +38,17 @@ class ShopController extends Controller
 
         $rate_percentage = 100 * $rate / ( $reviews_number * 5 );
 
+        $recommended_products = Product::where('id', '!=', $product->id)
+        ->where('category_id', $product->category_id)
+        ->inRandomOrder()
+        ->limit(4)
+        ->get();
+
         return view('front.shop.show', [
             'product' => $product,
             'product_rate' => $rate_percentage,
             'reviews_number' => $reviews_number,
+            'recommended_products' => $recommended_products
         ]);
     }
 }

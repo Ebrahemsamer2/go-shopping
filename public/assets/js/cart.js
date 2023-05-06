@@ -58,7 +58,7 @@ class Cart {
         });
     };
 
-    static add = (slug, cart_type = 'default', qty) => {
+    static add = (slug, cart_type = 'default', qty = 1) => {
         let formData = new FormData();
         let token = $("meta[name='_token']").attr('content');
 
