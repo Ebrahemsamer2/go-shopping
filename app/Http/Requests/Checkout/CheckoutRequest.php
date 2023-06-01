@@ -32,6 +32,7 @@ class CheckoutRequest extends FormRequest
             'city' => 'required|max:50',
             'zipcode' => 'required|numeric',
             'notes' => 'max:500',
+            'payment_method' => 'required|in:paypal,stripe',
         ];
     }
 }

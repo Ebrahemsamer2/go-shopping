@@ -51,7 +51,7 @@ class Product extends Model
             return $this->price;
         }
         
-        $discount = $this->price * ($this->discount / 100);
+        $discount = round($this->price * ($this->discount / 100));
         return $this->price - $discount;
     }
 

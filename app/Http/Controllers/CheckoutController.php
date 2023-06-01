@@ -7,6 +7,11 @@ use App\Models\Cart;
 use App\Models\Order;
 
 use App\Http\Requests\Checkout\CheckoutRequest;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
+use App\Services\Payment\Paypal;
+use App\Services\Payment\Stripe;
+use App\Services\Payment\PaymentService;
 
 class CheckoutController extends Controller
 {
@@ -17,56 +22,30 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(CheckoutRequest $request)
+    public function handlePayment(CheckoutRequest $request, PaymentService $payment_service)
     {
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-        
-        $line_items = [];
-        $orderPrice = 0;
-        $product_ids = [];
+        return $payment_service->pay($request);   
+    }
 
-        foreach(Cart::getAll() as $item)
-        {
-            $qty = $item->qty;
+    public function paymentCancel(Order $order) {
+        $order->updateStatus(Order::CANCELLED_ORDER_STATUS);
+        return view("front.order.cancelled_payment", ['order' => $order]);
+    }
 
-            $price_data = [];
-            $price_data['currency'] = 'usd';
-            $price_data['product_data'] = ['name' => $item->model->title];
-            $price_data['unit_amount'] = $item->model->price;
-
-            $item_data = array(
-                'price_data' => $price_data,
-                'quantity' => $qty,
-            );
-            $line_items[] = $item_data;
-
-            while($qty) {
-                $orderPrice += $item->price;
-                $product_ids[] = array('product_id' => $item->model->id);
-                $qty--;
+    public function paymentSuccess(Order $order, Request $request) {
+        if(strtoupper($order->payment_method) === Order::PAYPAL_PAYMENT_METHOD) {
+            $provider = new PayPalClient;
+            $provider->setApiCredentials(config('paypal'));
+            $provider->getAccessToken();
+            $response = $provider->capturePaymentOrder($request['token']);
+            if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+                $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
+                return view("front.order.success_payment", ['order' => $order]);
+            } else {
+                return $this->paymentCancel($order);
             }
         }
-        $line_items[] = array(
-            'price_data' => array(
-                'currency' => 'usd', 
-                'product_data' => ['name' => 'Tax'], 
-                'unit_amount' => \Cart::tax(0, '', '')
-            ),
-            'quantity' => 1
-        );
-
-        $orderPrice += \Cart::tax(0, '', '');
-        
-        // inserting a new order for this session
-        $order = Order::createWithOrderItems($orderPrice, $request, $product_ids);
-
-        $checkout_session = $stripe->checkout->sessions->create([
-            'line_items' => $line_items,
-            'mode' => 'payment',
-            'success_url' => route('success_payment', $order),
-            'cancel_url' => route('cancelled_payment', $order),
-        ]);
-
-        return redirect($checkout_session->url);
+        $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
+        return view("front.order.success_payment", ['order' => $order]);
     }
 }

@@ -54,7 +54,8 @@ class Order extends Model
         $order->orderItems()->createMany($orderItemsIds);
         return $order;
     }
-
+    
+    /* Relations */ 
     public function orderItems() {
         return $this->hasMany(OrderItem::class);
     }

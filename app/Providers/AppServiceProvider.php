@@ -15,7 +15,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if(request()->has('payment_method')) {
+            $payment_method = request()->input('payment_method');
+            $class_name = "\App\Services\Payment\\" . ucfirst($payment_method);
+            if(!class_exists($class_name))
+            {
+                abort(500);
+            }
+            $this->app->bind(\App\Services\Payment\PaymentService::class, $class_name);
+        }
     }
 
     /**

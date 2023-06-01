@@ -30,11 +30,11 @@ Route::get('/wishlist', [CartController::class, 'wishlist'])->name('cart.wishlis
 
 // checkout routes
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout', [CheckoutController::class, 'handlePayment'])->name('checkout.handle_payment');
 
 // order routes
-Route::get('/success_payment/{order}', [OrderController::class, 'successPayment'])->name('success_payment');
-Route::get('/cancelled_payment/{order}', [OrderController::class, 'cancelledPayment'])->name('cancelled_payment');
+Route::get('success_payment/{order}', [CheckoutController::class, 'paymentSuccess'])->name('checkout.success_payment');
+Route::get('cancelled_payment/{order}', [CheckoutController::class, 'paymentCancel'])->name('checkout.cancelled_payment');
 
 // Shop Routes
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
