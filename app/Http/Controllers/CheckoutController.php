@@ -34,18 +34,10 @@ class CheckoutController extends Controller
 
     public function paymentSuccess(Order $order, Request $request) {
         if(strtoupper($order->payment_method) === Order::PAYPAL_PAYMENT_METHOD) {
-            $provider = new PayPalClient;
-            $provider->setApiCredentials(config('paypal'));
-            $provider->getAccessToken();
-            $response = $provider->capturePaymentOrder($request['token']);
-            if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-                $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
-                return view("front.order.success_payment", ['order' => $order]);
-            } else {
-                return $this->paymentCancel($order);
-            }
+            $payment_service = new Paypal();
+        } else {
+            $payment_service = new Stripe();
         }
-        $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
-        return view("front.order.success_payment", ['order' => $order]);
+        return $payment_service->paymentSuccess($order, $request);
     }
 }

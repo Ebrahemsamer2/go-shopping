@@ -2,7 +2,9 @@
 
 namespace App\Services\Payment;
 use App\Http\Requests\Checkout\CheckoutRequest;
+use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
 use App\Models\Cart;
 use App\Models\Order;
 
@@ -71,6 +73,19 @@ class Paypal extends PaymentService
             return redirect()
                 ->route('checkout')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+    }
+
+    public function paymentSuccess(Order $order, Request $request) {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
+            return view("front.order.success_payment", ['order' => $order]);
+        } else {
+            return $this->paymentCancel($order);
         }
     }
 }

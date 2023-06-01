@@ -4,6 +4,7 @@ namespace App\Services\Payment;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Http\Requests\Checkout\CheckoutRequest;
+use Illuminate\Http\Request;
 
 class Stripe extends PaymentService
 {
@@ -58,5 +59,10 @@ class Stripe extends PaymentService
         ]);
 
         return redirect($checkout_session->url);
+    }
+
+    public function paymentSuccess($order, Request $request){
+        $order->updateStatus(Order::COMPLETED_ORDER_STATUS);
+        return view("front.order.success_payment", ['order' => $order]);
     }
 }
