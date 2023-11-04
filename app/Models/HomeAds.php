@@ -11,7 +11,7 @@ class HomeAds extends Model
 
     public function getAdImage()
     {
-        return $this->image == '' || strlen($this->image) == 0 ? 'assets/img/banner/banner-1.jpg' : 'assets/img/' . $this->image;
+        return $this->image == '' || strlen($this->image) == 0 ? 'storage/img/banner/banner-1.jpg' : 'storage/' . $this->image;
     }
 
     public static function latestAds($limit) {

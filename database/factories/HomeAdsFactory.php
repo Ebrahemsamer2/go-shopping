@@ -11,8 +11,8 @@ class HomeAdsFactory extends Factory
 {
     static $counter = -1;
     const images = [
-        'banner/banner-1.jpg',
-        'banner/banner-2.jpg',
+        'img/banner/banner-1.jpg',
+        'img/banner/banner-2.jpg',
     ];
 
     public function definition()

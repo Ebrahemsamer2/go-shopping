@@ -12,12 +12,12 @@ class PostFactory extends Factory
     static $counter = -1;
 
     const thumbnails = [
-        'blog/blog-1.jpg',
-        'blog/blog-2.jpg',
-        'blog/blog-3.jpg',
-        'blog/blog-4.jpg',
-        'blog/blog-5.jpg',
-        'blog/blog-6.jpg'
+        'img/blog/blog-1.jpg',
+        'img/blog/blog-2.jpg',
+        'img/blog/blog-3.jpg',
+        'img/blog/blog-4.jpg',
+        'img/blog/blog-5.jpg',
+        'img/blog/blog-6.jpg'
     ];
     public function definition()
     {

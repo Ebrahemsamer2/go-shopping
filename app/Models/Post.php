@@ -9,9 +9,11 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'slug', 'excerpt', 'thumbnail', 'body','user_id', 'blog_category_id'];
+
     public function getThumbnail()
     {
-        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('assets/img/blog/blog-default.png') : asset('assets/img/' . $this->thumbnail);
+        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('storage/img/blog/blog-default.png') : asset('storage/' . $this->thumbnail);
     }
 
     public static function latestBlog($limit){

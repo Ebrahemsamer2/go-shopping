@@ -14,18 +14,18 @@ class ProductFactory extends Factory
     static $counter = -1;
 
     const thumbnails = [
-        'product/product-1.jpg',
-        'product/product-2.jpg',
-        'product/product-3.jpg',
-        'product/product-4.jpg',
-        'product/product-5.jpg',
-        'product/product-6.jpg',
-        'product/product-7.jpg',
-        'product/product-8.jpg',
-        'product/product-9.jpg',
-        'product/product-10.jpg',
-        'product/product-11.jpg',
-        'product/product-12.jpg',
+        'img/product/product-1.jpg',
+        'img/product/product-2.jpg',
+        'img/product/product-3.jpg',
+        'img/product/product-4.jpg',
+        'img/product/product-5.jpg',
+        'img/product/product-6.jpg',
+        'img/product/product-7.jpg',
+        'img/product/product-8.jpg',
+        'img/product/product-9.jpg',
+        'img/product/product-10.jpg',
+        'img/product/product-11.jpg',
+        'img/product/product-12.jpg',
     ];
     public function definition()
     {

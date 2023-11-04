@@ -24,16 +24,16 @@ class CategoryFactory extends Factory
     ];
 
     const images = [
-        'categories/cat-1.jpg',
-        'categories/cat-2.jpg',
-        'categories/cat-3.jpg',
-        'categories/cat-4.jpg',
-        'categories/cat-5.jpg',
-        'categories/cat-1.jpg',
-        'categories/cat-2.jpg',
-        'categories/cat-3.jpg',
-        'categories/cat-4.jpg',
-        'categories/cat-5.jpg',
+        'img/categories/cat-1.jpg',
+        'img/categories/cat-2.jpg',
+        'img/categories/cat-3.jpg',
+        'img/categories/cat-4.jpg',
+        'img/categories/cat-5.jpg',
+        'img/categories/cat-1.jpg',
+        'img/categories/cat-2.jpg',
+        'img/categories/cat-3.jpg',
+        'img/categories/cat-4.jpg',
+        'img/categories/cat-5.jpg',
     ];
     public function definition()
     {

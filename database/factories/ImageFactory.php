@@ -11,11 +11,11 @@ class ImageFactory extends Factory
 {
     static $counter = -1;
     const images = [
-        'product/details/product-details-1.jpg',
-        'product/details/product-details-2.jpg',
-        'product/details/product-details-3.jpg',
-        'product/details/product-details-4.jpg',
-        'product/details/product-details-5.jpg',
+        'img/product/details/product-details-1.jpg',
+        'img/product/details/product-details-2.jpg',
+        'img/product/details/product-details-3.jpg',
+        'img/product/details/product-details-4.jpg',
+        'img/product/details/product-details-5.jpg',
     ];
     public function definition()
     {

@@ -9,9 +9,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'slug', 'small_description', 'description', 'price', 'discount', 'stock', 'thumbnail', 'category_id', 'user_id'];
     public function getThumbnail()
     {
-        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('assets/img/product/product-default.jpg') : asset('assets/img/' . $this->thumbnail);
+        return $this->thumbnail == '' || strlen($this->thumbnail) == 0 ? asset('storage/img/product/product-default.jpg') : asset('storage/' . $this->thumbnail);
     }
 
     public function getFeaturedImages()
